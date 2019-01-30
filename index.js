@@ -23,23 +23,4 @@ const App = () => (
     </div>
 );
 
-// class Dragon extends React.Components {
-//     render() {
-//         return (
-//             <div>
-//                 <div>
-//                     <div className="board">
-//                         style =
-//                         {{
-//                             width: WIDTH,
-//                             height: HEIGHT,
-//                             backgroundSize: `${CELL_SIZE}px ${CELL_SIZE}px`
-//                         }}
-//                     </div>
-//                 </div>
-//             </div>
-//         );
-//     }
-// }
-
 render(<App />, document.getElementById('root'));
