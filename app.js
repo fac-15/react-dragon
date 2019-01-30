@@ -1,6 +1,15 @@
-// import React from 'react';
-// import { render } from 'react-dom';
-// // import './dragon.css';
-// import Dragon from './index.js';
+import React from 'react';
+import { render } from 'react-dom';
+// import './dragon.css';
+import { Dragon, Cell } from './index.js';
 
-// render(<Dragon />, document.getElementById('root'));
+const App = () => {
+    return (
+        <div>
+            <Dragon />
+            <Cell />
+        </div>
+    );
+};
+
+render(<App />, document.getElementById('root'));
