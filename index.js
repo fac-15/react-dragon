@@ -36,12 +36,16 @@ class Dragon extends React.Component {
         this.cols = WIDTH / CELL_SIZE;
         this.board = this.makeEmptyBoard();
     }
+    componentDidMount() {
+        window.addEventListener('keydown', this.handleKeyPress);
+    }
 
+    // initial snake position
     state = {
-        cells: [{x: 7, y: 5}, {x: 6, y: 5}, {x: 5, y: 5}],
+        cells: [{ x: 7, y: 5 }, { x: 6, y: 5 }, { x: 5, y: 5 }],
         running: false,
         interval: 1000,
-        direction: 'right',
+        direction: 'right'
     };
 
     // Create empty board
@@ -71,21 +75,70 @@ class Dragon extends React.Component {
         return cells;
     }
 
-    
+    handleKeyPress = event => {
+        // console.log(event);
+        let direction, right, left, up, down;
+        const snakeHead = this.state.cells[0];
 
+        switch (event.keyCode) {
+            case 37:
+                console.log('you hit left');
+                direction != right ? (direction = left) : (direction = right);
+                break;
+            case 38:
+                console.log('you hit up');
+                up;
+                direction != down ? (direction = up) : (direction = down);
+                break;
+            case 39:
+                console.log('you hit right');
+                direction != left ? (direction = right) : (direction = left);
+                break;
+            case 40:
+                console.log('you hit down');
+                down;
+                direction != up ? (direction = down) : (direction = up);
+                break;
+        }
+
+        switch (direction) {
+            case right:
+                {
+                    x: snakeHead.x + 1;
+                }
+                break;
+            case left:
+                {
+                    x: snakeHead.x - 1;
+                }
+                break;
+            case down:
+                {
+                    y: snakeHead.y + 1;
+                }
+                break;
+            case up:
+                {
+                    y: snakeHead.y - 1;
+                }
+                break;
+        }
+
+        this.setState({ direction: direction });
+    };
 
     handleClick = event => {
         console.log('in the handleclick');
 
         setInterval(() => {
-//            const nextCell = getNextCell(this.state.direction, this.state.cells[0])
+            //            const nextCell = getNextCell(this.state.direction, this.state.cells[0])
             const snakeHead = this.state.cells[0];
-            const nextCell = {x: snakeHead.x, y: snakeHead.y + 1}
-            
+            // const nextCell = { x: snakeHead.x, y: snakeHead.y + 1 };
+
             this.setState({
                 cells: [nextCell, ...this.state.cells].slice(0, 3)
-            })
-        }, this.state.interval)
+            });
+        }, this.state.interval);
     };
 
     // clear interval when unmount
@@ -94,17 +147,14 @@ class Dragon extends React.Component {
         const { cells } = this.state;
         return (
             <div>
-                <div onKeyDown={this.handleKeys}
+                <div
+                    tabIndex="1"
                     className="Board"
                     style={{
                         width: WIDTH,
                         height: HEIGHT,
                         backgroundSize: `${CELL_SIZE}px ${CELL_SIZE}px`
                     }}
-                    // onClick={this.handleClick}
-                    // ref={n => {
-                    //     this.boardRef = n;
-                    // }}
                 >
                     {cells.map(cell => (
                         <Cell
