@@ -38,7 +38,10 @@ class Dragon extends React.Component {
     }
 
     state = {
-        cells: []
+        cells: [{x: 7, y: 5}, {x: 6, y: 5}, {x: 5, y: 5}],
+        running: false,
+        interval: 1000,
+        direction: 'right',
     };
 
     // Create empty board
@@ -68,46 +71,40 @@ class Dragon extends React.Component {
         return cells;
     }
 
-    getElementOffset() {
-        const rect = this.boardRef.getBoundingClientRect();
-        const doc = document.documentElement;
-        return {
-            x: rect.left + window.pageXOffset - doc.clientLeft,
-            y: rect.top + window.pageYOffset - doc.clientTop
-        };
-    }
+    
+
 
     handleClick = event => {
         console.log('in the handleclick');
 
-        const elemOffset = this.getElementOffset();
-        const offsetX = event.clientX - elemOffset.x;
-        const offsetY = event.clientY - elemOffset.y;
-
-        const x = Math.floor(offsetX / CELL_SIZE);
-        const y = Math.floor(offsetY / CELL_SIZE);
-
-        if (x >= 0 && x <= this.cols && y >= 0 && y <= this.rows) {
-            this.board[y][x] = !this.board[y][x];
-        }
-        this.setState({ cells: this.makeCells() });
+        setInterval(() => {
+//            const nextCell = getNextCell(this.state.direction, this.state.cells[0])
+            const snakeHead = this.state.cells[0];
+            const nextCell = {x: snakeHead.x, y: snakeHead.y + 1}
+            
+            this.setState({
+                cells: [nextCell, ...this.state.cells].slice(0, 3)
+            })
+        }, this.state.interval)
     };
+
+    // clear interval when unmount
 
     render() {
         const { cells } = this.state;
         return (
             <div>
-                <div
+                <div onKeyDown={this.handleKeys}
                     className="Board"
                     style={{
                         width: WIDTH,
                         height: HEIGHT,
                         backgroundSize: `${CELL_SIZE}px ${CELL_SIZE}px`
                     }}
-                    onClick={this.handleClick}
-                    ref={n => {
-                        this.boardRef = n;
-                    }}
+                    // onClick={this.handleClick}
+                    // ref={n => {
+                    //     this.boardRef = n;
+                    // }}
                 >
                     {cells.map(cell => (
                         <Cell
@@ -116,8 +113,8 @@ class Dragon extends React.Component {
                             key={`${cell.x},${cell.y}`}
                         />
                     ))}
-                    {/* <h1>Hello</h1> */}
                 </div>
+                <button onClick={this.handleClick}>start</button>
             </div>
         );
     }
