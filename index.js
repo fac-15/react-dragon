@@ -8,10 +8,10 @@ const HEIGHT = 600;
 
 class Cell extends React.Component {
     render() {
-        console.log('in the cell');
+        // console.log('in the cell');
 
         const { x, y } = this.props;
-        console.log('in the props', this.props);
+        // console.log('in the props', this.props);
 
         return (
             <div
@@ -75,69 +75,93 @@ class Dragon extends React.Component {
         return cells;
     }
 
+    // switch directions and handle keypress
     handleKeyPress = event => {
         // console.log(event);
-        let direction, right, left, up, down;
+        let direction;
         const snakeHead = this.state.cells[0];
 
         switch (event.keyCode) {
             case 37:
                 console.log('you hit left');
-                direction != right ? (direction = left) : (direction = right);
+                this.state.direction != 'right'
+                    ? (direction = 'left')
+                    : (direction = 'right');
                 break;
             case 38:
                 console.log('you hit up');
-                up;
-                direction != down ? (direction = up) : (direction = down);
+                this.state.direction != 'down'
+                    ? (direction = 'up')
+                    : (direction = 'down');
                 break;
             case 39:
                 console.log('you hit right');
-                direction != left ? (direction = right) : (direction = left);
+                this.state.direction != 'left'
+                    ? (direction = 'right')
+                    : (direction = 'left');
                 break;
             case 40:
                 console.log('you hit down');
-                down;
-                direction != up ? (direction = down) : (direction = up);
+                this.state.direction != 'up'
+                    ? (direction = 'down')
+                    : (direction = 'up');
                 break;
         }
 
-        switch (direction) {
-            case right:
-                {
-                    x: snakeHead.x + 1;
-                }
+        // const nextCell = { x, y };
+
+        console.log('this is snakehead', snakeHead);
+        // console.log('nextcell!', nextCell);
+
+        // setInterval(() => {
+        this.setState({
+            direction: direction
+        });
+        // }, this.state.interval);
+    };
+
+    calculateNextCell = () => {
+        const snakeHead = this.state.cells[0];
+        let x, y;
+        switch (this.state.direction) {
+            case 'right':
+                x = snakeHead.x + 1;
+                y = snakeHead.y;
+
                 break;
-            case left:
-                {
-                    x: snakeHead.x - 1;
-                }
+            case 'left':
+                x = snakeHead.x - 1;
+                y = snakeHead.y;
+
                 break;
-            case down:
-                {
-                    y: snakeHead.y + 1;
-                }
+            case 'down':
+                y = snakeHead.y + 1;
+                x = snakeHead.x;
+
                 break;
-            case up:
-                {
-                    y: snakeHead.y - 1;
-                }
+            case 'up':
+                y = snakeHead.y - 1;
+                x = snakeHead.x;
+
                 break;
         }
 
-        this.setState({ direction: direction });
+        const nextCell = { x, y };
+
+        this.setState({ cells: [nextCell, ...this.state.cells].slice(0, 3) });
     };
 
     handleClick = event => {
-        console.log('in the handleclick');
+        //     console.log('in the handleclick');
 
         setInterval(() => {
-            //            const nextCell = getNextCell(this.state.direction, this.state.cells[0])
-            const snakeHead = this.state.cells[0];
-            // const nextCell = { x: snakeHead.x, y: snakeHead.y + 1 };
+            // });
+            //         const snakeHead = this.state.cells[0];
+            //         const nextCell = { x: snakeHead.x, y: snakeHead.y + 1 };
 
-            this.setState({
-                cells: [nextCell, ...this.state.cells].slice(0, 3)
-            });
+            // this.setState({
+            this.calculateNextCell();
+            // });
         }, this.state.interval);
     };
 
