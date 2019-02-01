@@ -44,7 +44,7 @@ class Dragon extends React.Component {
     state = {
         cells: [{ x: 7, y: 5 }, { x: 6, y: 5 }, { x: 5, y: 5 }],
         running: false,
-        interval: 1000,
+        interval: 500,
         direction: 'right'
     };
 
@@ -171,6 +171,7 @@ class Dragon extends React.Component {
         const { cells } = this.state;
         return (
             <div>
+                <h1>Release the dragon</h1>
                 <div
                     tabIndex="1"
                     className="Board"

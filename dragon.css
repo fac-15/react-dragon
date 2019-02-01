@@ -1,12 +1,41 @@
+@import url('https://fonts.googleapis.com/css?family=Shojumaru');
+
+
+body {
+    background-color: black;
+}
+
 .Board {
     position: relative;
+    border: 0.4em solid green;
     margin: 0 auto;
-    background-color: grey;
+    background-color: rgb(0, 0, 0);
     background-image: linear-gradient(rgb(212, 212, 212) 1px, transparent 1px),
         linear-gradient(90deg, rgb(212, 212, 212) 1px, transparent 1px);
 }
 
 .Cell {
-    background: red;
+    background: green;
     position: absolute;
+}
+
+h1 {
+    font-family: 'Shojumaru', cursive;
+    font-size: 4em;
+    text-align: center;
+    color: green;
+}
+
+button {
+    font-family: 'Shojumaru', cursive;
+    font-size: 2em;
+    padding: 0.4em;
+    border: 0.2em solid green;
+    background-color: transparent;
+    text-align: center;
+    color: green;
+    position: absolute;
+    bottom: 2em;
+    left: 26em;
+
 }
