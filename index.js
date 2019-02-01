@@ -50,7 +50,14 @@ class Dragon extends React.Component {
 
     // initial snake position
     state = {
-        cells: [{ x: 7, y: 5 }, { x: 6, y: 5 }, { x: 5, y: 5 }],
+        cells: [
+            { x: 7, y: 5 },
+            { x: 6, y: 5 },
+            { x: 5, y: 5 },
+            { x: 4, y: 5 },
+            { x: 3, y: 5 },
+            { x: 2, y: 5 }
+        ],
         running: false,
         interval: 500,
         direction: 'right'
@@ -88,6 +95,7 @@ class Dragon extends React.Component {
         // console.log(event);
         let direction;
         const snakeHead = this.state.cells[0];
+        console.log(this.state.cells);
 
         switch (event.keyCode) {
             case 37:
@@ -99,7 +107,6 @@ class Dragon extends React.Component {
                 break;
             case 38:
                 event.preventDefault();
-
                 console.log('you hit up');
                 this.state.direction != 'down'
                     ? (direction = 'up')
@@ -107,7 +114,6 @@ class Dragon extends React.Component {
                 break;
             case 39:
                 event.preventDefault();
-
                 console.log('you hit right');
                 this.state.direction != 'left'
                     ? (direction = 'right')
@@ -115,7 +121,6 @@ class Dragon extends React.Component {
                 break;
             case 40:
                 event.preventDefault();
-
                 console.log('you hit down');
                 this.state.direction != 'up'
                     ? (direction = 'down')
@@ -163,7 +168,12 @@ class Dragon extends React.Component {
 
         const nextCell = { x, y };
 
-        this.setState({ cells: [nextCell, ...this.state.cells].slice(0, 3) });
+        this.setState({
+            cells: [nextCell, ...this.state.cells].slice(
+                0,
+                this.state.cells.length
+            )
+        });
 
         if (
             snakeHead.x < 0 ||
@@ -173,7 +183,14 @@ class Dragon extends React.Component {
         ) {
             console.log('you died');
             this.setState({
-                cells: [{ x: 7, y: 5 }, { x: 6, y: 5 }, { x: 5, y: 5 }]
+                cells: [
+                    { x: 7, y: 5 },
+                    { x: 6, y: 5 },
+                    { x: 5, y: 5 },
+                    { x: 4, y: 5 },
+                    { x: 3, y: 5 },
+                    { x: 2, y: 5 }
+                ]
                 // direction: this.right
             });
         }
@@ -203,11 +220,11 @@ class Dragon extends React.Component {
                         backgroundSize: `${CELL_SIZE}px ${CELL_SIZE}px`
                     }}
                 >
-                    {cells.map(cell => (
+                    {cells.map((cell, index) => (
                         <Cell
                             x={cell.x}
                             y={cell.y}
-                            key={`${cell.x},${cell.y}`}
+                            key={`${cell.x},${cell.y}${index}`}
                         />
                     ))}
                 </div>
