@@ -75,6 +75,13 @@ class Dragon extends React.Component {
         return cells;
     }
 
+
+    randomizeApples() {
+        let appleCells = []
+
+        
+    }
+
     // switch directions and handle keypress
     handleKeyPress = event => {
         // console.log(event);
