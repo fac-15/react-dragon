@@ -75,11 +75,8 @@ class Dragon extends React.Component {
         return cells;
     }
 
-
     randomizeApples() {
-        let appleCells = []
-
-        
+        let appleCells = [];
     }
 
     // switch directions and handle keypress
@@ -156,19 +153,24 @@ class Dragon extends React.Component {
         const nextCell = { x, y };
 
         this.setState({ cells: [nextCell, ...this.state.cells].slice(0, 3) });
+
+        if (
+            snakeHead.x < 0 ||
+            snakeHead.x > 39 ||
+            snakeHead.y > 29 ||
+            snakeHead.y < 0
+        ) {
+            console.log('you died');
+            this.setState({
+                cells: [{ x: 7, y: 5 }, { x: 6, y: 5 }, { x: 5, y: 5 }]
+            });
+        }
     };
 
     handleClick = event => {
-        //     console.log('in the handleclick');
-
+        clearInterval();
         setInterval(() => {
-            // });
-            //         const snakeHead = this.state.cells[0];
-            //         const nextCell = { x: snakeHead.x, y: snakeHead.y + 1 };
-
-            // this.setState({
             this.calculateNextCell();
-            // });
         }, this.state.interval);
     };
 
