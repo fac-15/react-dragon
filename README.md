@@ -4,7 +4,7 @@
 
 ## To run our Dragon:
 
-1. git clone 
+1. git clone (!FROM STAGING!)
 
 2. npm i 
 
