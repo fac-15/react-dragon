@@ -34,6 +34,7 @@ button {
     text-align: center;
     color: green;
     position: absolute;
-    top: 6em;
-    left: 5em;
+    display: inline;
+    top: 3em;
+    left: 1em;
 }

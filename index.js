@@ -1,31 +1,39 @@
 import React from 'react';
 import { render } from 'react-dom';
 import './dragon.css';
+import Cell from './Cell';
 
 const CELL_SIZE = 20;
 const WIDTH = 800;
 const HEIGHT = 600;
 
-class Cell extends React.Component {
-    render() {
-        // console.log('in the cell');
+// class Cell extends React.Component {
+//     render() {
+//         // console.log('in the cell');
 
-        const { x, y } = this.props;
-        // console.log('in the props', this.props);
+//         const { x, y } = this.props;
+//         // console.log('in the props', this.props);
 
-        return (
-            <div
-                className="Cell"
-                style={{
-                    left: `${CELL_SIZE * x + 1}px`,
-                    top: `${CELL_SIZE * y + 1}px`,
-                    width: `${CELL_SIZE - 1}px`,
-                    height: `${CELL_SIZE - 1}px`
-                }}
-            />
-        );
-    }
-}
+//         return (
+//             <div
+//                 className="Cell"
+//                 style={{
+//                     left: `${CELL_SIZE * x + 1}px`,
+//                     top: `${CELL_SIZE * y + 1}px`,
+//                     width: `${CELL_SIZE - 1}px`,
+//                     height: `${CELL_SIZE - 1}px`
+//                 }}
+//             />
+//         );
+//     }
+// }
+
+// const Cell = props => {
+//     // state: {
+//     const x = props.x;
+//     const y = props.y;
+//     // } // your cell div with coordinates
+// };
 
 class Dragon extends React.Component {
     constructor() {
@@ -87,24 +95,31 @@ class Dragon extends React.Component {
 
         switch (event.keyCode) {
             case 37:
+                event.preventDefault();
                 console.log('you hit left');
                 this.state.direction != 'right'
                     ? (direction = 'left')
                     : (direction = 'right');
                 break;
             case 38:
+                event.preventDefault();
+
                 console.log('you hit up');
                 this.state.direction != 'down'
                     ? (direction = 'up')
                     : (direction = 'down');
                 break;
             case 39:
+                event.preventDefault();
+
                 console.log('you hit right');
                 this.state.direction != 'left'
                     ? (direction = 'right')
                     : (direction = 'left');
                 break;
             case 40:
+                event.preventDefault();
+
                 console.log('you hit down');
                 this.state.direction != 'up'
                     ? (direction = 'down')
@@ -163,6 +178,7 @@ class Dragon extends React.Component {
             console.log('you died');
             this.setState({
                 cells: [{ x: 7, y: 5 }, { x: 6, y: 5 }, { x: 5, y: 5 }]
+                // direction: this.right
             });
         }
     };
@@ -181,6 +197,7 @@ class Dragon extends React.Component {
         return (
             <div>
                 <h1>Release the dragon</h1>
+                <button onClick={this.handleClick}>start</button>
                 <div
                     tabIndex="1"
                     className="Board"
@@ -198,7 +215,6 @@ class Dragon extends React.Component {
                         />
                     ))}
                 </div>
-                <button onClick={this.handleClick}>start</button>
             </div>
         );
     }
