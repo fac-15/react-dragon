@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Shojumaru');
 
-
 body {
     background-color: black;
 }
@@ -37,5 +36,4 @@ button {
     position: absolute;
     top: 6em;
     left: 5em;
-
 }
